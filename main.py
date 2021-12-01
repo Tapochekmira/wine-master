@@ -9,7 +9,13 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 def the_ending(age):
     if (age % 10 == 1) and (age != 11) and (age != 111):
         return "год"
-    elif (age % 10 > 1) and (age % 10 < 5) and (age != 12) and (age != 13) and (age != 14):
+    elif (
+            (age % 10 > 1)
+            and (age % 10 < 5)
+            and (age != 12)
+            and (age != 13)
+            and (age != 14)
+    ):
         return "года"
     else:
         return 'лет'
@@ -30,7 +36,11 @@ ending = the_ending(age)
 final = f'{age} {ending}'
 
 # Считываем из файла инфу про вина
-wines_pandas = pandas.read_excel('wine3.xlsx', na_values='None', keep_default_na=False)
+wines_pandas = pandas.read_excel(
+    'wine3.xlsx',
+    na_values='None',
+    keep_default_na=False
+)
 wines = wines_pandas.to_dict(orient='records')
 
 headers = wines_pandas.columns.ravel()
