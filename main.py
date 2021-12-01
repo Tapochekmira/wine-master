@@ -1,8 +1,7 @@
 import collections
 import datetime
-from http.server import HTTPServer, SimpleHTTPRequestHandler
-
 import pandas
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
@@ -32,16 +31,14 @@ template = env.get_template('template.html')
 year_of_foundation = 1920
 year_now = datetime.datetime.now().year
 age = year_now - year_of_foundation
-ending = the_ending(age)
-final = f'{age} {ending}'
+age_caption = f'{age} {computation_end_of_word(age)}'
 
 # Считываем из файла инфу про вина
-wines_pandas = pandas.read_excel(
+wines = pandas.read_excel(
     'wine3.xlsx',
     na_values='None',
     keep_default_na=False
-)
-wines = wines_pandas.to_dict(orient='records')
+).to_dict(orient='records')
 
 headers = wines_pandas.columns.ravel()
 wines_dict = collections.defaultdict(list)
@@ -53,7 +50,7 @@ categories = sorted(list(wines_dict.keys()))
 
 rendered_page = template.render(
     headers=headers,
-    year=final,
+    year=age_caption,
     wines=wines_dict,
     categories=categories
 )
