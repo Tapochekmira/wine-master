@@ -6,7 +6,7 @@ import pandas
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-def the_ending(age):
+def computation_end_of_word(age):
     if (age % 10 == 1) and (age != 11) and (age != 111):
         return "год"
     elif (
