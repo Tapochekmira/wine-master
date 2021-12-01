@@ -1,10 +1,8 @@
-import datetime
-import pandas
 import collections
-
-
-from pprint import pprint
+import datetime
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+
+import pandas
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
@@ -16,13 +14,13 @@ def the_ending(age):
     else:
         return 'лет'
 
+
 env = Environment(
     loader=FileSystemLoader('.'),
     autoescape=select_autoescape(['html', 'xml'])
 )
 
 template = env.get_template('template.html')
-
 
 # Считаем возраст винодельни и ставим правильный вариант год/года/лет
 year_of_foundation = 1920
@@ -42,7 +40,6 @@ for wine in wines:
     wines_dict[wine[headers[0]]].append(wine)
 
 categories = sorted(list(wines_dict.keys()))
-
 
 rendered_page = template.render(
     headers=headers,
