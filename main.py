@@ -5,7 +5,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-def computation_end_of_word(age):
+def age_caption(age):
     if (age % 10 == 1) and (age != 11) and (age != 111):
         return "год"
     elif (
@@ -31,7 +31,7 @@ template = env.get_template('template.html')
 year_of_foundation = 1920
 year_now = datetime.datetime.now().year
 age = year_now - year_of_foundation
-age_caption = f'{age} {computation_end_of_word(age)}'
+winery_age = f'{age} {age_caption(age)}'
 
 # Считываем из файла инфу про вина
 wines = pandas.read_excel(
@@ -40,19 +40,14 @@ wines = pandas.read_excel(
     keep_default_na=False
 ).to_dict(orient='records')
 
-headers = wines.columns.ravel()
 grouped_wines = collections.defaultdict(list)
 
 for wine in wines:
-    grouped_wines[wine[headers[0]]].append(wine)
-
-categories = sorted(list(grouped_wines.keys()))
+    grouped_wines[wine['Категория']].append(wine)
 
 rendered_page = template.render(
-    headers=headers,
-    year=age_caption,
-    wines=grouped_wines,
-    categories=categories
+    years=winery_age,
+    grouped_wines=grouped_wines,
 )
 
 with open('index.html', 'w', encoding="utf8") as file:
