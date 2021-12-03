@@ -35,7 +35,7 @@ def main():
 
     # Считываем из файла инфу про вина
     wines = pandas.read_excel(
-        'wine3.xlsx',
+        'wine.xlsx',
         na_values='None',
         keep_default_na=False
     ).to_dict(orient='records')
