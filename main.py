@@ -40,18 +40,18 @@ wines = pandas.read_excel(
     keep_default_na=False
 ).to_dict(orient='records')
 
-headers = wines_pandas.columns.ravel()
-wines_dict = collections.defaultdict(list)
+headers = wines.columns.ravel()
+grouped_wines = collections.defaultdict(list)
 
 for wine in wines:
-    wines_dict[wine[headers[0]]].append(wine)
+    grouped_wines[wine[headers[0]]].append(wine)
 
-categories = sorted(list(wines_dict.keys()))
+categories = sorted(list(grouped_wines.keys()))
 
 rendered_page = template.render(
     headers=headers,
     year=age_caption,
-    wines=wines_dict,
+    wines=grouped_wines,
     categories=categories
 )
 
