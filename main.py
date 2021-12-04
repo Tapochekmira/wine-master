@@ -5,7 +5,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 
-def age_caption(age):
+def choice_age_caption(age):
     if (age % 10 == 1) and (age != 11) and (age != 111):
         return "год"
     elif (
@@ -31,7 +31,7 @@ def main():
     year_of_foundation = 1920
     year_now = datetime.datetime.now().year
     age = year_now - year_of_foundation
-    winery_age = f'{age} {age_caption(age)}'
+    winery_age = f'{age} {choice_age_caption(age)}'
 
     # Считываем из файла инфу про вина
     wines = pandas.read_excel(
